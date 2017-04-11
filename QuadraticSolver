@@ -1,0 +1,204 @@
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class QuadraticSolver extends JFrame {
+	private JLabel lblA;
+	private JLabel lblB;
+	private JLabel lblC;
+	private JTextField txtA;
+	private JTextField txtB;
+	private JTextField txtC;
+	private JPanel panel_2;
+	private JLabel lblSolution1;
+	private JLabel lblSolution2;
+	private JLabel lblRange;
+	private JLabel lblDomain;
+	private JPanel panel_3;
+	private JLabel lblYintercept;
+	private JLabel lblVertex;
+	private JLabel lblFocus;
+	private JLabel lblDirectrix;
+	private JLabel lblAxisOfSymmetry;
+
+	public QuadraticSolver() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
+
+		JLabel lblQuadraticEquationSolver = new JLabel(
+				"Quadratic Equation Solver");
+		lblQuadraticEquationSolver.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblQuadraticEquationSolver.setBounds(0, 0, 567, 39);
+		lblQuadraticEquationSolver
+				.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(lblQuadraticEquationSolver);
+
+		JButton btnEnter = new JButton("Enter");
+		btnEnter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				solveQuadratic();
+			}
+		});
+		btnEnter.setBounds(235, 335, 89, 23);
+		getContentPane().add(btnEnter);
+
+		JPanel panel = new JPanel();
+		panel.setBounds(84, 50, 166, 64);
+		getContentPane().add(panel);
+
+		lblA = new JLabel("Enter your A Value:");
+		panel.add(lblA);
+
+		lblB = new JLabel("Enter your B Value:");
+		panel.add(lblB);
+
+		lblC = new JLabel("Enter your C Value:");
+		panel.add(lblC);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(317, 42, 166, 81);
+		getContentPane().add(panel_1);
+
+		txtA = new JTextField();
+		txtA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtB.requestFocus();
+				txtB.selectAll();
+			}
+		});
+		panel_1.add(txtA);
+		txtA.setColumns(10);
+
+		txtB = new JTextField();
+		txtB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtC.requestFocus();
+				txtC.selectAll();
+			}
+		});
+		panel_1.add(txtB);
+		txtB.setColumns(10);
+
+		txtC = new JTextField();
+		txtC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				solveQuadratic();
+			}
+		});
+		txtC.setColumns(10);
+		panel_1.add(txtC);
+
+		panel_2 = new JPanel();
+		panel_2.setBounds(84, 168, 166, 140);
+		getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+
+		lblSolution1 = new JLabel("Solution 1:");
+		lblSolution1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSolution1.setBounds(10, 5, 146, 14);
+		panel_2.add(lblSolution1);
+
+		lblSolution2 = new JLabel("Solution 2:");
+		lblSolution2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSolution2.setBounds(10, 30, 146, 14);
+		panel_2.add(lblSolution2);
+
+		lblRange = new JLabel(" Range:");
+		lblRange.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRange.setBounds(10, 55, 146, 14);
+		panel_2.add(lblRange);
+
+		lblDomain = new JLabel(" Domain:");
+		lblDomain.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDomain.setBounds(10, 80, 146, 14);
+		panel_2.add(lblDomain);
+
+		lblAxisOfSymmetry = new JLabel("Axis Of Symmetry:");
+		lblAxisOfSymmetry.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAxisOfSymmetry.setBounds(0, 105, 166, 14);
+		panel_2.add(lblAxisOfSymmetry);
+
+		panel_3 = new JPanel();
+		panel_3.setLayout(null);
+		panel_3.setBounds(317, 168, 166, 140);
+		getContentPane().add(panel_3);
+
+		lblYintercept = new JLabel("Y-Intercept:");
+		lblYintercept.setHorizontalAlignment(SwingConstants.CENTER);
+		lblYintercept.setBounds(10, 5, 146, 14);
+		panel_3.add(lblYintercept);
+
+		lblVertex = new JLabel("Vertex:");
+		lblVertex.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVertex.setBounds(10, 30, 146, 14);
+		panel_3.add(lblVertex);
+
+		lblFocus = new JLabel(" Focus:");
+		lblFocus.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFocus.setBounds(10, 55, 146, 14);
+		panel_3.add(lblFocus);
+
+		lblDirectrix = new JLabel(" Directrix:");
+		lblDirectrix.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDirectrix.setBounds(10, 80, 146, 14);
+		panel_3.add(lblDirectrix);
+	}
+
+	private void solveQuadratic() {
+		String inputA = txtA.getText();
+		String inputB = txtB.getText();
+		String inputC = txtC.getText();
+		try {
+			double a = Double.parseDouble(inputA);
+			double b = Double.parseDouble(inputB);
+			double c = Double.parseDouble(inputC);
+			double first = ((-1) * b);
+			double second = Math.sqrt((Math.pow(b, 2)) - 4 * a * c);
+			double third = (2 * a);
+			double solution1 = (first + second) / third;
+			double solution2 = (first - second) / third;
+			double yintercept = c;
+			double axis = (-1 * b) / (2 * a);
+			double vertexx = -1 * b / (2 * a);
+			double vertexy = (Math.pow(vertexx, 2) * a) + (vertexx * b) + (c);
+			double p = (1 / (4 * a));
+			double focusx = vertexx;
+			double focusy = vertexy + p;
+			double directrix = vertexy - p;
+			lblSolution1.setText("Solution 1: " + solution1);
+			lblSolution2.setText("Solution 1: " + solution2);
+			lblYintercept.setText("Y-Intercept: 0, " + yintercept);
+			lblDomain.setText("Domain: All Real Numbers");
+			if (a < 0) {
+				lblRange.setText("Range: y <= " + vertexy);
+			} else {
+				lblRange.setText("Range: y >= " + vertexy);
+			}
+			lblVertex.setText("Vertex: " + vertexx + ", " + vertexy);
+			lblFocus.setText("Focus: " + focusx + ", " + focusy);
+			lblDirectrix.setText("Directrix: y = " + directrix);
+			lblAxisOfSymmetry.setText("Axis of Symmetry: x = " + axis);
+		} catch (Exception e) {
+			lblA.setText("Please enter A as a number.");
+			lblB.setText("Please enter B as a number.");
+			lblC.setText("Please enter C as a number.");
+		} finally {
+			txtA.requestFocus();
+			txtA.selectAll();
+		}
+	}
+
+	public static void main(String str[]) {
+		QuadraticSolver quadSolve = new QuadraticSolver();
+		quadSolve.setSize(584, 444);
+		quadSolve.setVisible(true);
+
+	}
+}
